@@ -33,6 +33,7 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->post('/api/morse/text-to-morse', [MorseController::class ,"textToMorse"]);
+$routes->post('/api/morse/morse-dictionary', [MorseController::class ,"morseDictionary"]);
 $routes->post('/api/morse/morse-to-text', [MorseController::class ,"morseToText"]);
 $routes->get('/api/morse/get-code-book', [MorseController::class ,"getCodeBook"]);
 /*

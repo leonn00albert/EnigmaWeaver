@@ -14,6 +14,8 @@ class Morse
      * Exception message for invalid characters in Morse-to-text conversion.
      */
     const MORSE_TO_TEXT_EXCEPTION = "Request contains invalid characters, allowed characters : . - ";
+
+    const CHAR_LEN = "Only 1 character allowed.";
     /**
      * Morse code mapping for characters.
      */
@@ -27,6 +29,18 @@ class Morse
         '4' => '....-', '5' => '.....', '6' => '-....', '7' => '--...', '8' => '---..',
         '9' => '----.', '.' => '.-.-.-', ',' => '--..--', '?' => '..--..', '!' => '-.-.--', " " => " "
     ];
+
+
+    public static function morseDictionary(string $char): string{
+        $char = strtoupper($char);
+        if (strlen($char) > 1) {
+            throw new Exception(self::CHAR_LEN);
+        }
+        if (!empty($invalidChars)) {
+            throw new Exception(self::TEXT_TO_MORSE_EXCEPTION);
+        }
+        return self::CODE_BOOK[$char];
+    }
     /**
      * Convert text to Morse code.
      *

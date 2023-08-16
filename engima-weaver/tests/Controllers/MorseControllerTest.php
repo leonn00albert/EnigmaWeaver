@@ -22,6 +22,26 @@ final class MorseControllerTest extends CIUnitTestCase
         $result->assertJSONExact(["code" => ".... . .-.. .-.. ---", "original_text" => "hello"]);
     }
 
+    public function testMorseDictionary()
+    {
+        $body = json_encode(['character' => 'a']);
+        $result = $this->withBody($body)
+            ->controller(\App\Controllers\MorseController::class)
+            ->execute('morseDictionary');
+        $this->assertTrue($result->getJSON() !== false, "Response is not of type: JSON");
+        $result->assertJSONExact(["code" => ".-", "original_character" => "a"]);
+    }
+
+    public function testMorseDictionaryException()
+    {
+        $body = json_encode(['character' => 'aa%']);
+        $result = $this->withBody($body)
+            ->controller(\App\Controllers\MorseController::class)
+            ->execute('morseDictionary');
+        $this->assertTrue($result->getJSON() !== false, "Response is not of type: JSON");
+        $result->assertJSONExact(["error" => Morse::CHAR_LEN]);
+    }
+
     public function testTextToMorseException()
     {
         $body = json_encode(['text' => 'hello%']);

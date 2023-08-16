@@ -22,6 +22,18 @@ final class MorseTest extends CIUnitTestCase
         Morse::textToMorse("ABC%");
     }
 
+
+    public function testMorseDictionary()
+    {
+        $result = Morse::morseDictionary("A");
+        $this->assertEquals(".-", $result);
+    }
+
+    public function testMorseDictionaryException()
+    {
+        $this->expectException(Exception::class);
+        Morse::morseToText("AB");
+    }
     public function testMorseToText()
     {
         $result = Morse::morseToText(".... . .-.. .-.. ---");

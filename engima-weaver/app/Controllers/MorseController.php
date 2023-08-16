@@ -38,6 +38,21 @@ class MorseController extends BaseController
            
         }
     }
+
+    public function morseDictionary()
+    {
+        try {
+            $json = $this->request->getJSON();
+            $data = [
+                "code" => Morse::morseDictionary($json->character),
+                "original_character" => $json->character,
+            ];
+            return $this->response->setJSON($data);
+        } catch (Exception $e) {
+            return $this->response->setJSON(["error" => $e->getMessage()]);
+           
+        }
+    }
     public function getCodeBook()
     {
         $data = [
